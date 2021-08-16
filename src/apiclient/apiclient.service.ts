@@ -1,4 +1,8 @@
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class ApiClientService {}
+export class ApiClientService {
+  getSaved() {
+    return 'test??';
+  }
+}
