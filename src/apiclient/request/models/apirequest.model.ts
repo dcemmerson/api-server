@@ -1,4 +1,4 @@
-import { RequestParams } from 'src/apiclient/dto/requestparams.dto';
+import { RequestParams } from 'src/apiclient/request/dto/requestparams.dto';
 
 export class ApiRequest {
   type: string;

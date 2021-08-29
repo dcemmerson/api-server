@@ -4,7 +4,7 @@ import axios, { AxiosResponse } from 'axios';
 import { RequestModifier } from './models/requestmodifier.model';
 
 @Injectable()
-export class ApiClientService {
+export class ApiClientRequestService {
   getSaved() {
     return 'test??';
   }
@@ -16,12 +16,19 @@ export class ApiClientService {
     if (!requestModifier.isValid) {
       requestModifier.modifyRequestToValid();
     }
-    console.log(requestParams);
+
     switch (requestModifier.request.type.toUpperCase()) {
       case 'GET':
-        const res = await axios.get(requestModifier.request.requestUrl);
-        console.log(res);
-        return res;
+        return axios
+          .get(requestModifier.request.requestUrl)
+          .then((res) => {
+            console.log(res);
+            return res;
+          })
+          .catch((err) => {
+            console.log(err);
+            return null;
+          });
       case 'POST':
         break;
       case 'PUT':

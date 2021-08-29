@@ -7,12 +7,12 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
-import { ApiClientService } from './apiclient.service';
+import { ApiClientRequestService } from './apiclientrequest.service';
 import { RequestParams } from './dto/requestparams.dto';
 
-@Controller('apiclient')
-export class ApiClientController {
-  constructor(private readonly apiClientService: ApiClientService) {}
+@Controller('apiclientrequest')
+export class ApiClientRequestController {
+  constructor(private readonly apiClientService: ApiClientRequestService) {}
 
   @Get('/getsaved')
   getSaved(): string {
@@ -28,7 +28,9 @@ export class ApiClientController {
         console.log(axiosResponse);
         return axiosResponse;
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log('BAD REQUEST');
+        console.log(err);
         throw new HttpException(
           {
             status: HttpStatus.BAD_REQUEST,

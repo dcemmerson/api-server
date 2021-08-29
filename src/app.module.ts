@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ApiClientModule } from './apiclient/apiclient.module';
+import { ApiClientRequestModule } from './apiclient/request/apiclientrequest.module';
 
 @Module({
-  imports: [ApiClientModule],
+  imports: [ApiClientRequestModule],
   controllers: [AppController],
   providers: [AppService],
 })

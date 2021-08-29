@@ -1,5 +1,5 @@
-import { RequestParams } from 'src/apiclient/dto/requestparams.dto';
-import { ApiRequest } from 'src/apiclient/models/apirequest.model';
+import { RequestParams } from 'src/apiclient/request/dto/requestparams.dto';
+import { ApiRequest } from 'src/apiclient/request/models/apirequest.model';
 
 export class RequestModifier {
   request: ApiRequest;
