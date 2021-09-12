@@ -1,17 +1,22 @@
+import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
+// import axios from '@nestjs/axios';
+
 import { RequestParams } from './dto/requestparams.dto';
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { RequestModifier } from './models/requestmodifier.model';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class ApiClientService {
+  constructor(private httpService: HttpService) {}
   getSaved() {
     return 'test??';
   }
 
-  async fetchNewRequest(
+  fetchNewRequest(
     requestParams: RequestParams,
-  ): Promise<AxiosResponse<any>> {
+  ): Observable<AxiosResponse<any>> {
     const requestModifier = new RequestModifier(requestParams);
     if (!requestModifier.isValid) {
       requestModifier.modifyRequestToValid();
@@ -19,9 +24,7 @@ export class ApiClientService {
     console.log(requestParams);
     switch (requestModifier.request.type.toUpperCase()) {
       case 'GET':
-        const res = await axios.get(requestModifier.request.requestUrl);
-        console.log(res);
-        return res;
+        return this.httpService.get(requestModifier.request.requestUrl);
       case 'POST':
         break;
       case 'PUT':

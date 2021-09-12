@@ -7,6 +7,7 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
+import { map, Observable } from 'rxjs';
 import { ApiClientService } from './apiclient.service';
 import { RequestParams } from './dto/requestparams.dto';
 
@@ -23,19 +24,6 @@ export class ApiClientController {
   newRequest(@Body() newRequestParams: RequestParams) {
     return this.apiClientService
       .fetchNewRequest(newRequestParams)
-      .then((axiosResponse: AxiosResponse<any>) => {
-        console.log('final res');
-        console.log(axiosResponse);
-        return axiosResponse;
-      })
-      .catch(() => {
-        throw new HttpException(
-          {
-            status: HttpStatus.BAD_REQUEST,
-            error: 'Incorrect request method type or bad url',
-          },
-          HttpStatus.BAD_REQUEST,
-        );
-      });
+      .pipe(map((response) => response.data));
   }
 }
